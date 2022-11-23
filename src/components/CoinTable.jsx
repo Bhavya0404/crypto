@@ -21,6 +21,8 @@ import { commaSeparate } from "../utils/commaSeparate";
 import { useNavigate } from "react-router-dom";
 
 const CoinTable = () => {
+  
+
   const [coins, setCoins] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [search, setSearch] = React.useState("");
@@ -40,50 +42,29 @@ const CoinTable = () => {
   }, [currency]);
 
 
-  const low = 73.40;
-  const high = 104.26;
-  const close = 85.31;
+  // const low = 73.40;
+  // const high = 104.26;
+  // const close = 85.31;
 
-  const woodiePivot = () => {
-    let pp = (high + low + close) / 4;
-    let r2 = pp + high - low;
-    let r1 = 2 * pp - low;
-    pp = (high + low + close) / 3;
-    let s1 = 2 * pp - high;
-    let s2 = pp - high + low;
+  // const woodiePivot = () => {
+  //   let pp = (high + low + close) / 4;
+  //   let r2 = pp + high - low;
+  //   let r1 = 2 * pp - low;
+  //   pp = (high + low + close) / 3;
+  //   let s1 = 2 * pp - high;
+  //   let s2 = pp - high + low;
 
 
-   console.log(r1);
-   console.log(r2);
-   console.log(pp);
-   console.log(s1);
-   console.log(s2);
+  //  console.log(r1);
+  //  console.log(r2);
+  //  console.log(pp);
+  //  console.log(s1);
+  //  console.log(s2);
    
-  };
+  // };
  
 
-  const Pivot = () => {
-    let pp = (high + low + close) / 3;
-   
-    let r3 = pp + 2* (high - low)
-    let r2 = pp + (high - low)
-    let r1 = 2* pp - low
-    
-    let s1 = 2* pp - high;
-    let s2 = pp - (high - low)
-    let s3 = pp - 2* (high - low)
-    
-
-   console.log(r1);
-   console.log(r2);
-   console.log(r3);
-   console.log(pp);
-   console.log(s1);
-   console.log(s2);
-   console.log(s3);
-
-  };
-  Pivot()
+  
   console.log(coins);
 
   const darkTheme = createTheme({
