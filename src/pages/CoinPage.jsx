@@ -34,9 +34,9 @@ const CoinPage = () => {
 
   const fetchCoinData = async () => {
     const { data } = await axios.get(CoinData(id));
-    console.log(data.market_data.low_24h.inr)
-    console.log(data.market_data.high_24h.inr)
-    console.log(data.market_data.current_price.inr)
+    // console.log(data.market_data.low_24h.inr)
+    // console.log(data.market_data.high_24h.inr)
+    // console.log(data.market_data.current_price.inr)
     setLow(data.market_data.low_24h.inr)
     setHigh(data.market_data.high_24h.inr)
     setClose(data.market_data.current_price.inr)
@@ -145,7 +145,7 @@ const CoinPage = () => {
     Pivot()
     // fetchPrevCoinData();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [low, high, close]);
 
   if (isLoading) return <LinearProgress style={{ backgroundColor: "gold" }} />;
   // console.log(prevCoin)
@@ -219,8 +219,8 @@ const CoinPage = () => {
             
           <div className={classes.marketData}>
           <span style={{ display: "flex" }}>
-              <Typography variant="h5" className={classes.heading}>
-                Upper Range 1:{" "}
+              <Typography style={{color: '#FF0000'}}  variant="h5" className={classes.heading}>
+                Resistance 1:{" "}
               </Typography>
               &nbsp;&nbsp;
               <Typography variant="h5" style={{ fontFamily: "Montserrat" }}>
@@ -229,8 +229,8 @@ const CoinPage = () => {
             </span>
 
             <span style={{ display: "flex" }}>
-              <Typography variant="h5" className={classes.heading}>
-                Upper Range 2:{" "}
+              <Typography style={{color: '#FF0000'}} variant="h5" className={classes.heading}>
+              Resistance 2:{" "}
               </Typography>
               &nbsp;&nbsp;
               <Typography variant="h5" style={{ fontFamily: "Montserrat" }}>
@@ -240,7 +240,7 @@ const CoinPage = () => {
 
             <span style={{ display: "flex" }}>
               <Typography variant="h5" className={classes.heading}>
-                Middle point:{" "}
+                Pivot Point:{" "}
               </Typography>
               &nbsp;&nbsp;
               <Typography variant="h5" style={{ fontFamily: "Montserrat" }}>
@@ -249,8 +249,8 @@ const CoinPage = () => {
             </span>
 
             <span style={{ display: "flex" }}>
-              <Typography variant="h5" className={classes.heading}>
-                Lower Range 1:{" "}
+              <Typography style={{color: '#0ECB81'}} variant="h5" className={classes.heading}>
+                Support 1:{" "}
               </Typography>
               &nbsp;&nbsp;
               <Typography variant="h5" style={{ fontFamily: "Montserrat" }}>
@@ -259,8 +259,8 @@ const CoinPage = () => {
             </span>
 
             <span style={{ display: "flex" }}>
-              <Typography variant="h5" className={classes.heading}>
-                lower Range 2:{" "}
+              <Typography style={{color: '#0ECB81'}} variant="h5" className={classes.heading}>
+              Support 2:{" "}
               </Typography>
               &nbsp;&nbsp;
               <Typography variant="h5" style={{ fontFamily: "Montserrat" }}>
