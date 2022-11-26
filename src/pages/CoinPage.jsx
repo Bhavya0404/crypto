@@ -41,20 +41,25 @@ const CoinPage = () => {
     setLow(data.market_data.low_24h.inr)
     setHigh(data.market_data.high_24h.inr)
     setClose(data.market_data.current_price.inr)
-    console.log(low)
-    console.log(high)
-    console.log(close)
+   // console.log(low)
+   // console.log(high)
+   // console.log(close)
 
     setCoin(data);
     setIsLoading(false);
   };
 
-  console.log(coin.symbol)
+ // console.log(coin.symbol)
 
   const fetchPrevCoinData = async () => {
-    const MonthlyData = await axios.get(MonthlyCoin(coin.symbol.toString()));
+    const ex1 = coin.symbol?.toString() || ''
+    const MonthlyData = await axios.get(MonthlyCoin(ex1));
+   // console.log(MonthlyData)
     const neww = MonthlyData.data["Time Series (Digital Currency Weekly)"];
-    console.log(neww)
+   // console.log(neww["2020-03-15"])
+    for(var key in neww){
+      console.log(neww[key]) //open  close ke liye ["1a. open (INR)"] ye kr dena key ke aage
+    }
     setPrevCoin(neww);
     // setIsLoading(false);
   }
@@ -128,19 +133,19 @@ const CoinPage = () => {
     let s2 = pp - (high - low)
     let s3 = pp - 2* (high - low)
     
-  console.log("Range: ")
+ // console.log("Range: ")
 
   setResistance1(r1);
   setResistance2(r2);
   setPivotPoint(pp);
   setSupport1(s1);
   setSupport2(s2);
-   console.log(resistance1);
-   console.log(resistance2);
+ //  console.log(resistance1);
+ //  console.log(resistance2);
  
-   console.log(pivotPoint);
-   console.log(support1);
-   console.log(support2);
+ //  console.log(pivotPoint);
+ //  console.log(support1);
+ //  console.log(support2);
 
 
   };
@@ -153,7 +158,7 @@ const CoinPage = () => {
   }, [low, high, close, prevCoin]);
 
   if (isLoading) return <LinearProgress style={{ backgroundColor: "gold" }} />;
-  console.log(prevCoin)
+ // console.log(prevCoin)
   // prevCoin.map((c) => {
   //   if(c.id === id){
   //     console.log(c)
@@ -165,7 +170,7 @@ const CoinPage = () => {
 
   
   
-  console.log(coin)
+ // console.log(coin)
   
   return (
     <ThemeProvider theme={theme}>
