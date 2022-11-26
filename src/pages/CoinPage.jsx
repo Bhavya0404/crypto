@@ -14,6 +14,7 @@ import { commaSeparate } from "../utils/commaSeparate";
 import { CryptoState } from "../CryptoContext";
 import HTMLReactParser from "html-react-parser";
 import { ListCoins } from "../utils/apiService";
+import { MonthlyCoin } from "../utils/apiService";
 
 const CoinPage = () => {
   const [low, setLow] = React.useState(0);
@@ -48,9 +49,13 @@ const CoinPage = () => {
     setIsLoading(false);
   };
 
+  console.log(coin.symbol)
+
   const fetchPrevCoinData = async () => {
-    const { data } = await axios.get(ListCoins(currency));
-    setPrevCoin(data);
+    const MonthlyData = await axios.get(MonthlyCoin(coin.symbol.toString()));
+    const neww = MonthlyData.data["Time Series (Digital Currency Weekly)"];
+    console.log(neww)
+    setPrevCoin(neww);
     // setIsLoading(false);
   }
 
@@ -142,13 +147,13 @@ const CoinPage = () => {
 
   React.useEffect(() => {
     fetchCoinData();
+    fetchPrevCoinData();
     Pivot()
-    // fetchPrevCoinData();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [low, high, close]);
+  }, [low, high, close, prevCoin]);
 
   if (isLoading) return <LinearProgress style={{ backgroundColor: "gold" }} />;
-  // console.log(prevCoin)
+  console.log(prevCoin)
   // prevCoin.map((c) => {
   //   if(c.id === id){
   //     console.log(c)

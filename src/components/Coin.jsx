@@ -40,6 +40,7 @@ const Coin = ({ coin }) => {
     setCoinHistory(data.prices);
   };
 
+
   useEffect(() => {
     fetchCoinHistory();
     // eslint-disable-next-line react-hooks/exhaustive-deps
