@@ -16,6 +16,7 @@ import HTMLReactParser from "html-react-parser";
 import { ListCoins } from "../utils/apiService";
 import { MonthlyCoin } from "../utils/apiService";
 import { useCallback } from "react";
+import Button from '@mui/material/Button';
 
 const CoinPage = () => {
  // const [low, setLow] = React.useState(0);
@@ -90,7 +91,7 @@ const CoinPage = () => {
       },
     },
   };
-
+  const price = {current: ""};
   const fetchCoinData = async () => {
     const { data } = await axios.get(CoinData(id));
     // console.log(data.market_data.low_24h.inr)
@@ -102,14 +103,16 @@ const CoinPage = () => {
    // console.log(low)
    // console.log(high)
    // console.log(close)
-
+    price.current = data?.market_data?.current_price.inr;
+    console.log("CURRENT: ", data?.market_data?.current_price.inr)
     setCoin(data);
     setIsLoading(false);
   };
+  console.log(price)
 
   const month  = {low: "", high: "", close: ""};
   const points = {r1: "", r2: "", pp: "", s1: "", s2: ""};
- 
+  
   const fetchPrevCoinData = useCallback(async () => {
     const ex1 = coin.symbol?.toString() || '';
     console.log(ex1);
@@ -195,6 +198,10 @@ const CoinPage = () => {
   
   
  // console.log(coin)
+ console.log("DATATAAA")
+ console.log(coin?.market_data?.current_price[currency.toLowerCase()]);
+ console.log(resistance1 - 8)
+ console.log(resistance2)
   
   return (
     <ThemeProvider theme={theme}>
@@ -210,12 +217,16 @@ const CoinPage = () => {
           <Typography variant="h3" style={classes.heading}>
             {coin?.name}
           </Typography>
-          <Typography variant="subtitle1" style={classes.description}>
+          <Typography variant="subtitle1" component="h2">RESISTANCE: It is The Upper Range that a coin can hit</Typography>
+          <Typography variant="subtitle1" component="h2">SUPPORT: It is the Lower Range that a coin can hit</Typography>
+          <Typography >Eg: A Coin can go as High as Resistance Price and as Low as Support Price , This gives User a Clear Range of a Particular Coin</Typography>
+
+          {/* <Typography variant="subtitle1" style={classes.description}>
             {HTMLReactParser(coin?.description?.en.split(". ")[0])}
-          </Typography>
+          </Typography> */}
           <div className={classes.marketData}>
             <span style={{ display: "flex" }}>
-              <Typography variant="h5" className={classes.heading}>
+              <Typography variant="h5" component="h2" className={classes.heading}>
                 Rank:{" "}
               </Typography>
               &nbsp;&nbsp;
@@ -235,7 +246,7 @@ const CoinPage = () => {
                 )}
               </Typography>
             </span>
-            <span style={{ display: "flex" }}>
+            {/* <span style={{ display: "flex" }}>
               <Typography variant="h5" className={classes.heading}>
                 Market Cap:{" "}
               </Typography>
@@ -247,20 +258,12 @@ const CoinPage = () => {
                 )}{" "}
                 M
               </Typography>
-            </span>
+            </span> */}
 
           </div>
             
           <div className={classes.marketData}>
-          <span style={{ display: "flex" }}>
-              <Typography style={{color: '#FF0000'}}  variant="h5" className={classes.heading}>
-                Resistance 1:{" "}
-              </Typography>
-              &nbsp;&nbsp;
-              <Typography variant="h5" style={{ fontFamily: "Montserrat" }}>
-                {resistance1}
-              </Typography>
-            </span>
+          
 
             <span style={{ display: "flex" }}>
               <Typography style={{color: '#FF0000'}} variant="h5" className={classes.heading}>
@@ -269,6 +272,16 @@ const CoinPage = () => {
               &nbsp;&nbsp;
               <Typography variant="h5" style={{ fontFamily: "Montserrat" }}>
                 {resistance2}
+              </Typography>
+            </span>
+
+            <span style={{ display: "flex" }}>
+              <Typography style={{color: '#FF0000'}}  variant="h5" className={classes.heading}>
+                Resistance 1:{" "}
+              </Typography>
+              &nbsp;&nbsp;
+              <Typography variant="h5" style={{ fontFamily: "Montserrat" }}>
+                {resistance1}
               </Typography>
             </span>
 
@@ -302,9 +315,13 @@ const CoinPage = () => {
               </Typography>
             </span>
             <span>
-              <Typography>
-                {buy}
-              </Typography>
+              {coin?.market_data?.current_price[currency.toLowerCase()] >= resistance1 && coin?.market_data?.current_price[currency.toLowerCase()] <= resistance2 ? 
+                <Button variant="contained" color="success">
+                  Safe To Consider for Buying
+                </Button> : <Button variant="outlined" color="error">
+                  Not Safe To Consider for Buying
+                </Button>
+              }
             </span>
           </div>
           
